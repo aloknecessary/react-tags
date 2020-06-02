@@ -87,6 +87,7 @@ class ReactTags extends Component {
     allowUnique: true,
     allowDragDrop: true,
     tags: [],
+    maxTagCount:10
   };
 
   constructor(props) {
@@ -181,21 +182,21 @@ class ReactTags extends Component {
       this.resetAndFocusInput();
     }
   }
-
+//keerthi
   handleChange(e) {
     if (this.props.handleInputChange) {
       this.props.handleInputChange(e.target.value);
     }
-
     const query = e.target.value.trim();
 
+    
     this.setState({ query }, this.updateSuggestions);
   }
 
   updateSuggestions = () => {
     const { query, selectedIndex } = this.state;
-    const suggestions = this.filteredSuggestions(query, this.props.suggestions);
-
+   // const suggestions = this.filteredSuggestions(query, this.props.suggestions);
+     const{suggestions}=this.props;
     this.setState({
       suggestions: suggestions,
       selectedIndex:
@@ -314,8 +315,8 @@ class ReactTags extends Component {
   }
 
   addTag = (tag) => {
-    const { tags, labelField, allowUnique } = this.props;
-    if (!tag.id || !tag[labelField]) {
+    const { tags, labelField, allowUnique, maxTagCount } = this.props;
+    if (!tag.id || !tag[labelField] || tags.length>=maxTagCount ) {
       return;
     }
     const existingKeys = tags.map((tag) => tag.id.toLowerCase());
@@ -419,33 +420,55 @@ class ReactTags extends Component {
       maxLength,
       inline,
       inputFieldPosition,
+      maxTagCount,
+      tags
     } = this.props;
 
     const position = !inline
       ? INPUT_FIELD_POSITIONS.BOTTOM
       : inputFieldPosition;
 
-    const tagInput = !this.props.readOnly ? (
-      <div className={classNames.tagInput}>
-        <input
-          ref={(input) => {
-            this.textInput = input;
-          }}
-          className={classNames.tagInputField}
-          type="text"
-          placeholder={placeholder}
-          aria-label={placeholder}
-          onFocus={this.handleFocus}
-          onBlur={this.handleBlur}
-          onChange={this.handleChange}
-          onKeyDown={this.handleKeyDown}
-          onPaste={this.handlePaste}
-          name={inputName}
-          id={inputId}
-          maxLength={maxLength}
-          value={this.props.inputValue}
-        />
+    const tagInput = !this.props.readOnly ? (tags.length<maxTagCount?
+      <div style={{display: "inline-block"}}>
+        <div className={classNames.tagInput}>
+          <div>#</div>
+          <input
+            ref={(input) => {
+              this.textInput = input;
+            }}
+            className={classNames.tagInputField}
+            type="text"
+            placeholder={placeholder}
+            aria-label={placeholder}
+            onFocus={this.handleFocus}
+            onBlur={this.handleBlur}
+            onChange={this.handleChange}
+            onKeyDown={this.handleKeyDown}
+            onPaste={this.handlePaste}
+            name={inputName}
+            id={inputId}
+            maxLength={maxLength}
+            value={this.props.inputValue}
+          />
+        </div>
+      </div>:null
+    ) : null;
 
+    return (
+      <div className={ClassNames(classNames.tags, 'react-tags-wrapper')}>
+        {position === INPUT_FIELD_POSITIONS.TOP && tagInput}
+        <div className={classNames.selected}>
+          {tagItems}
+          {position === INPUT_FIELD_POSITIONS.INLINE && tagInput}
+        </div>
+        {position === INPUT_FIELD_POSITIONS.BOTTOM && tagInput}
+        <div className="react-tags-count-container">
+          <div style={{padding: "13px"}} className="react-tags-count">
+           <span style={{fontSize:" 12px"}}>{this.props.tags.length}</span>
+           <span style={{fontSize:" 12px"}}>/</span>
+           <span style={{fontSize:" 12px"}}>{this.props.maxTagCount}</span>
+          </div>
+        </div>
         <Suggestions
           query={query}
           suggestions={suggestions}
@@ -459,17 +482,6 @@ class ReactTags extends Component {
           classNames={classNames}
           renderSuggestion={this.props.renderSuggestion}
         />
-      </div>
-    ) : null;
-
-    return (
-      <div className={ClassNames(classNames.tags, 'react-tags-wrapper')}>
-        {position === INPUT_FIELD_POSITIONS.TOP && tagInput}
-        <div className={classNames.selected}>
-          {tagItems}
-          {position === INPUT_FIELD_POSITIONS.INLINE && tagInput}
-        </div>
-        {position === INPUT_FIELD_POSITIONS.BOTTOM && tagInput}
       </div>
     );
   }
