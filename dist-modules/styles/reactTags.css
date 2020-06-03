@@ -1,0 +1,116 @@
+@font-face {
+  font-family: "Nunito";
+  src: url(Nunito-Bold.ttf) format('truetype');
+  font-weight: bold;
+}
+@font-face {
+  font-family: "Nunito";
+  src: url(Nunito-Regular.ttf) format('truetype');
+  font-weight: 400;
+}
+
+* {
+    font-family: "Nunito";
+}
+div.ReactTags__tags {
+    position: relative;
+}
+
+/* Styles for the input */
+div.ReactTags__tagInput {
+    width: 200px;
+    border-radius: 2px;
+    display: flex;
+    align-items: center;
+}
+div.ReactTags__tagInput input.ReactTags__tagInputField,
+div.ReactTags__tagInput input.ReactTags__tagInputField:focus {
+    height: 31px;
+    margin: 0;
+    font-size: 14px;
+    width: 100%;
+    border: none;
+    display: flex;
+    align-items: center;
+    padding-left: 0;
+    font-weight: 400;
+}
+div.react-tags-count-container{
+    height: 25px;
+    margin-top: 10px;
+}
+div.react-tags-count{
+    display: inline;
+    padding: 5px 10px;
+	background: aliceblue;
+	border-radius: 15px;
+}
+div.react-tags-count span{
+    font-size:" 12px"
+  
+}
+
+
+/* Styles for selected tags */
+div.ReactTags__selected span.ReactTags__tag {
+    font-size: 15px;
+    /* display: inline-block; */
+    /* padding: 5px; */
+    margin: 0 3px;
+    border-radius: 2px;
+    color: #5581ec;
+    font-weight: 600;
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
+}
+div.ReactTags__selected a.ReactTags__remove {
+    color: #aaa;
+    margin-right: 5px;
+    cursor: pointer;
+    font-size: 25px;
+    font-weight: 400;
+}
+
+/* Styles for suggestions */
+div.ReactTags__suggestions {
+    position: relative;
+    margin-top: 20px;
+}
+div.tag__container{
+    display: inline-block;
+          background: rgb(235, 239, 248);
+          border-radius: 8px;
+          margin-right: 5px;
+          padding-top: 3px;
+          padding-bottom: 3px;
+          padding-left: 5px;
+          padding-right: 10px;
+          margin-bottom: 3px;
+          line-height: 1!important;
+}
+div.ReactTags__suggestions ul {
+    list-style-type: none;
+    /* box-shadow: .05em .01em .5em rgba(0,0,0,.2); */
+    background: white;
+    width: 200px;
+}
+div.ReactTags__suggestions li {
+    /* border-bottom: 1px solid #ddd; */
+    /* padding: 5px 10px; */
+    /* margin: 0; */
+    margin-bottom: 0px;
+}
+div.ReactTags__suggestions li mark {
+    /* text-decoration: underline; */
+    background: none;
+    color: #1b2427;
+    letter-spacing: -0.66;
+
+    /* font-weight: 600; */
+    /* font-size: 15px; */
+}
+div.ReactTags__suggestions ul li.ReactTags__activeSuggestion {
+    /* background: #b7cfe0; */
+    cursor: pointer;
+}
