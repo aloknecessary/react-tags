@@ -8,7 +8,6 @@ import Suggestions from './Suggestions';
 import PropTypes from 'prop-types';
 import ClassNames from 'classnames';
 import Tag from './Tag';
-
 import { buildRegExpFromDelimiters } from './utils';
 
 //Constants
@@ -387,6 +386,7 @@ class ReactTags extends Component {
     const moveTag = allowDragDrop ? this.moveTag : null;
     return tags.map((tag, index) => {
       return (
+        <div className="tag__container">
         <Tag
           key={tag.key || tag.id}
           index={index}
@@ -400,6 +400,7 @@ class ReactTags extends Component {
           classNames={{ ...DEFAULT_CLASSNAMES, ...classNames }}
           allowDragDrop={allowDragDrop}
         />
+        </div>
       );
     });
   };
@@ -438,7 +439,7 @@ class ReactTags extends Component {
             }}
             className={classNames.tagInputField}
             type="text"
-            placeholder={placeholder}
+            placeholder={"addhastag"}
             aria-label={placeholder}
             onFocus={this.handleFocus}
             onBlur={this.handleBlur}
@@ -463,10 +464,10 @@ class ReactTags extends Component {
         </div>
         {position === INPUT_FIELD_POSITIONS.BOTTOM && tagInput}
         <div className="react-tags-count-container">
-          <div style={{padding: "13px"}} className="react-tags-count">
-           <span style={{fontSize:" 12px"}}>{this.props.tags.length}</span>
-           <span style={{fontSize:" 12px"}}>/</span>
-           <span style={{fontSize:" 12px"}}>{this.props.maxTagCount}</span>
+          <div  className="react-tags-count">
+           <span >{this.props.tags.length}</span>
+           <span >/</span>
+           <span >{this.props.maxTagCount}</span>
           </div>
         </div>
         <Suggestions
