@@ -1,4 +1,17 @@
-/* Example Styles for React Tags*/
+@font-face {
+  font-family: "Nunito";
+  src: url(Nunito-Bold.ttf) format('truetype');
+  font-weight: bold;
+}
+@font-face {
+  font-family: "Nunito";
+  src: url(Nunito-Regular.ttf) format('truetype');
+  font-weight: 400;
+}
+
+* {
+    font-family: "Nunito";
+}
 div.ReactTags__tags {
     position: relative;
 }
@@ -14,12 +27,13 @@ div.ReactTags__tagInput input.ReactTags__tagInputField,
 div.ReactTags__tagInput input.ReactTags__tagInputField:focus {
     height: 31px;
     margin: 0;
-    font-size: 12px;
+    font-size: 14px;
     width: 100%;
     border: none;
     display: flex;
     align-items: center;
     padding-left: 0;
+    font-weight: 400;
 }
 div.react-tags-count-container{
     height: 25px;
@@ -32,7 +46,7 @@ div.react-tags-count{
 	border-radius: 15px;
 }
 div.react-tags-count span{
-    fontSize:" 12px"
+    font-size:" 12px"
   
 }
 

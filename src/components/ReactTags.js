@@ -9,7 +9,8 @@ import PropTypes from 'prop-types';
 import ClassNames from 'classnames';
 import Tag from './Tag';
 import { buildRegExpFromDelimiters } from './utils';
-
+//
+import '../styles/reactTags.css';
 //Constants
 import {
   KEYS,
@@ -66,6 +67,7 @@ class ReactTags extends Component {
     ),
     allowUnique: PropTypes.bool,
     renderSuggestion: PropTypes.func,
+    maxTagCount: PropTypes.number,
   };
 
   static defaultProps = {
@@ -86,7 +88,7 @@ class ReactTags extends Component {
     allowUnique: true,
     allowDragDrop: true,
     tags: [],
-    maxTagCount:10
+    maxTagCount: 10,
   };
 
   constructor(props) {
@@ -121,7 +123,7 @@ class ReactTags extends Component {
 
   componentDidMount() {
     const { autofocus, readOnly } = this.props;
-    
+
     if (autofocus && !readOnly) {
       this.resetAndFocusInput();
     }
@@ -181,21 +183,20 @@ class ReactTags extends Component {
       this.resetAndFocusInput();
     }
   }
-//keerthi
+  //keerthi
   handleChange(e) {
     if (this.props.handleInputChange) {
       this.props.handleInputChange(e.target.value);
     }
     const query = e.target.value.trim();
 
-    
+
     this.setState({ query }, this.updateSuggestions);
   }
 
   updateSuggestions = () => {
-    const { query, selectedIndex } = this.state;
-   // const suggestions = this.filteredSuggestions(query, this.props.suggestions);
-     const{suggestions}=this.props;
+    const { selectedIndex } = this.state;
+    const { suggestions } = this.props;
     this.setState({
       suggestions: suggestions,
       selectedIndex:
@@ -315,7 +316,7 @@ class ReactTags extends Component {
 
   addTag = (tag) => {
     const { tags, labelField, allowUnique, maxTagCount } = this.props;
-    if (!tag.id || !tag[labelField] || tags.length>=maxTagCount ) {
+    if (!tag.id || !tag[labelField] || tags.length >= maxTagCount) {
       return;
     }
     const existingKeys = tags.map((tag) => tag.id.toLowerCase());
@@ -386,20 +387,20 @@ class ReactTags extends Component {
     const moveTag = allowDragDrop ? this.moveTag : null;
     return tags.map((tag, index) => {
       return (
-        <div className="tag__container">
-        <Tag
-          key={tag.key || tag.id}
-          index={index}
-          tag={tag}
-          labelField={labelField}
-          onDelete={this.handleDelete.bind(this, index)}
-          moveTag={moveTag}
-          removeComponent={removeComponent}
-          onTagClicked={this.handleTagClick.bind(this, index)}
-          readOnly={readOnly}
-          classNames={{ ...DEFAULT_CLASSNAMES, ...classNames }}
-          allowDragDrop={allowDragDrop}
-        />
+        <div className="tag__container" key={index}>
+          <Tag
+            key={tag.key || tag.id}
+            index={index}
+            tag={tag}
+            labelField={labelField}
+            onDelete={this.handleDelete.bind(this, index)}
+            moveTag={moveTag}
+            removeComponent={removeComponent}
+            onTagClicked={this.handleTagClick.bind(this, index)}
+            readOnly={readOnly}
+            classNames={{ ...DEFAULT_CLASSNAMES, ...classNames }}
+            allowDragDrop={allowDragDrop}
+          />
         </div>
       );
     });
@@ -422,15 +423,15 @@ class ReactTags extends Component {
       inline,
       inputFieldPosition,
       maxTagCount,
-      tags
+      tags,
     } = this.props;
 
     const position = !inline
       ? INPUT_FIELD_POSITIONS.BOTTOM
       : inputFieldPosition;
 
-    const tagInput = !this.props.readOnly ? (tags.length<maxTagCount?
-      <div style={{display: "inline-block"}}>
+    const tagInput = !this.props.readOnly ? (tags.length < maxTagCount ?
+      <div style={{ display: 'inline-block' }}>
         <div className={classNames.tagInput}>
           <div>#</div>
           <input
@@ -439,7 +440,7 @@ class ReactTags extends Component {
             }}
             className={classNames.tagInputField}
             type="text"
-            placeholder={"addhastag"}
+            placeholder={'addhastag'}
             aria-label={placeholder}
             onFocus={this.handleFocus}
             onBlur={this.handleBlur}
@@ -452,7 +453,7 @@ class ReactTags extends Component {
             value={this.props.inputValue}
           />
         </div>
-      </div>:null
+      </div> : null
     ) : null;
 
     return (
@@ -464,10 +465,10 @@ class ReactTags extends Component {
         </div>
         {position === INPUT_FIELD_POSITIONS.BOTTOM && tagInput}
         <div className="react-tags-count-container">
-          <div  className="react-tags-count">
-           <span >{this.props.tags.length}</span>
-           <span >/</span>
-           <span >{this.props.maxTagCount}</span>
+          <div className="react-tags-count">
+            <span >{this.props.tags.length}</span>
+            <span >/</span>
+            <span >{this.props.maxTagCount}</span>
           </div>
         </div>
         <Suggestions

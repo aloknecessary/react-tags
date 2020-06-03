@@ -22,7 +22,7 @@ module.exports = {
   "parser": "babel-eslint",
   rules: {
     "indent": [2, 2],
-    "linebreak-style": [2, "unix"],
+    "linebreak-style": ["off"],
     "quotes": [2, "single"],
     "semi": [2, "always"],
     "eqeqeq": [2, "smart"],
